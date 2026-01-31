@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#F5E6D3">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="SANDROLATRICE">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="La SANDROLATRICE non calcola solo numeri: calcola sorrisi. 🌵✨">
+    <meta name="apple-touch-fullscreen" content="yes">
+    
+    <!-- iOS Icons -->
+    <link rel="apple-touch-icon" href="image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='30' fill='%23C76B4F'/%3E%3Ccircle cx='90' cy='90' r='60' fill='%23F5E6D3'/%3E%3Ctext x='90' y='105' font-family='Arial' font-size='70' text-anchor='middle' fill='%23C76B4F'%3E🌵%3C/text%3E%3C/svg%3E" sizes="180x180">
+    <link rel="apple-touch-icon" href="image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 152 152'%3E%3Crect width='152' height='152' rx='25' fill='%23C76B4F'/%3E%3Ccircle cx='76' cy='76' r='50' fill='%23F5E6D3'/%3E%3Ctext x='76' y='88' font-family='Arial' font-size='58' text-anchor='middle' fill='%23C76B4F'%3E🌵%3C/text%3E%3C/svg%3E" sizes="152x152">
+    <link rel="apple-touch-icon" href="image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='20' fill='%23C76B4F'/%3E%3Ccircle cx='60' cy='60' r='40' fill='%23F5E6D3'/%3E%3Ctext x='60' y='70' font-family='Arial' font-size='46' text-anchor='middle' fill='%23C76B4F'%3E🌵%3C/text%3E%3C/svg%3E" sizes="120x120">
+    
+    <title>SANDROLATRICE ©</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sand: #F5E6D3;
+            --terracotta: #C76B4F;
+            --ocra: #D4A017;
+            --dark-text: #2D2D2D;
+            --light-gray: #E8E0D5;
+            --dark-sand: #E0D0B8;
+            --dark-terracotta: #A5553F;
+            --dark-ocra: #B88A0F;
+            --dark-bg: #1E1A15;
+            --dark-card: #2A251F;
+            --error-color: #E63946;
+            --success-color: #2A9D8F;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --shadow-hover: 0 6px 15px rgba(0, 0, 0, 0.2);
+            --transition: all 0.15s ease;
+            --border-radius: 16px;
+            --button-size: 60px;
+            --button-gap: 8px;
+            --display-height: 120px;
+        }
+
+        .dark-mode {
+            --sand: #1E1A15;
+            --terracotta: #A5553F;
+            --ocra: #B88A0F;
+            --dark-text: #F5E6D3;
+            --light-gray: #2A251F;
+            --dark-sand: #25201A;
+            --dark-terracotta: #C76B4F;
+            --dark-ocra: #D4A017;
+            --dark-bg: #15120F;
+            --dark-card: #221D17;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+            --shadow-hover: 0 6px 15px rgba(0, 0, 0, 0.45);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--sand) 0%, var(--light-gray) 100%);
+            color: var(--dark-text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition: var(--transition);
+            background-attachment: fixed;
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+        }
+
+        .dark-mode body {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-card) 100%);
+        }
+
+        .calculator {
+            width: 100%;
+            max-width: 400px;
+            background: var(--sand);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .dark-mode .calculator {
+            background: var(--dark-card);
+        }
+
+        .calculator-header {
+            text-align: center;
+            padding: 20px 15px 15px;
+            position: relative;
+            border-bottom: 3px solid var(--terracotta);
+            background: var(--dark-sand);
+        }
+
+        .dark-mode .calculator-header {
+            background: var(--dark-sand);
+            border-bottom: 3px solid var(--dark-terracotta);
+        }
+
+        .calculator-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--terracotta);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .dark-mode .calculator-title {
+            color: var(--dark-terracotta);
+        }
+
+        .calculator-subtitle {
+            font-size: 0.9rem;
+            color: var(--dark-text);
+            opacity: 0.85;
+            margin-top: 3px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .controls-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 15px;
+            background: var(--light-gray);
+            border-bottom: 2px solid var(--ocra);
+        }
+
+        .dark-mode .controls-container {
+            background: var(--dark-sand);
+            border-bottom: 2px solid var(--dark-ocra);
+        }
+
+        .memory-indicator {
+            font-size: 0.85rem;
+            font-weight: 500;
+            background: var(--ocra);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            letter-spacing: 0.5px;
+            min-width: 80px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .dark-mode .memory-indicator {
+            background: var(--dark-ocra);
+        }
+
+        .control-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .control-button {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--terracotta);
+            color: white;
+            border: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .dark-mode .control-button {
+            background: var(--dark-terracotta);
+        }
+
+        .control-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 3px 7px rgba(0,0,0,0.3);
+        }
+
+        .control-button:active {
+            transform: scale(0.95);
+        }
+
+        .control-button.sound-off {
+            background: #6c757d;
+        }
+
+        .dark-mode .control-button.sound-off {
+            background: #495057;
+        }
+
+        .display-container {
+            padding: 20px;
+            background: var(--light-gray);
+            border-bottom: 2px solid var(--ocra);
+            position: relative;
+            height: var(--display-height);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .dark-mode .display-container {
+            background: var(--dark-sand);
+            border-bottom: 2px solid var(--dark-ocra);
+        }
+
+        .expression {
+            text-align: right;
+            font-size: 1.4rem;
+            color: var(--terracotta);
+            min-height: 28px;
+            margin-bottom: 8px;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+            word-break: break-all;
+            overflow-wrap: break-word;
+            max-height: 56px;
+            overflow-y: auto;
+            padding-right: 5px;
+            opacity: 0.9;
+        }
+
+        .dark-mode .expression {
+            color: var(--dark-terracotta);
+        }
+
+        .result {
+            text-align: right;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-text);
+            min-height: 48px;
+            letter-spacing: -1px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .dark-mode .result {
+            color: var(--ocra);
+        }
+
+        .humor-message {
+            text-align: center;
+            padding: 12px 15px;
+            background: var(--ocra);
+            color: white;
+            font-weight: 500;
+            min-height: 24px;
+            margin: 15px;
+            border-radius: 12px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+        }
+
+        .dark-mode .humor-message {
+            background: var(--dark-ocra);
+        }
+
+        .humor-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .humor-message .close-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.2);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .history-container {
+            max-height: 100px;
+            overflow-y: auto;
+            padding: 8px 15px;
+            background: var(--light-gray);
+            border-bottom: 2px solid var(--terracotta);
+            font-size: 0.85rem;
+            color: var(--dark-text);
+            opacity: 0.9;
+            display: none;
+        }
+
+        .dark-mode .history-container {
+            background: var(--dark-sand);
+            border-bottom: 2px solid var(--dark-terracotta);
+        }
+
+        .history-container.show {
+            display: block;
+        }
+
+        .history-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--terracotta);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dark-mode .history-title {
+            color: var(--dark-terracotta);
+        }
+
+        .history-list {
+            list-style: none;
+            max-height: 70px;
+            overflow-y: auto;
+            padding-left: 5px;
+        }
+
+        .history-item {
+            padding: 3px 0;
+            border-bottom: 1px dashed rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .history-item:hover {
+            color: var(--terracotta);
+            transform: translateX(3px);
+        }
+
+        .dark-mode .history-item:hover {
+            color: var(--dark-terracotta);
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .history-expression {
+            opacity: 0.85;
+            margin-right: 8px;
+            font-style: italic;
+        }
+
+        .history-result {
+            font-weight: 600;
+            color: var(--ocra);
+        }
+
+        .dark-mode .history-result {
+            color: var(--dark-ocra);
+        }
+
+        .buttons-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--button-gap);
+            padding: 15px;
+            background: var(--sand);
+        }
+
+        .dark-mode .buttons-container {
+            background: var(--dark-card);
+        }
+
+        .btn {
+            width: 100%;
+            height: var(--button-size);
+            border: none;
+            border-radius: 14px;
+            background: white;
+            color: var(--dark-text);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+            touch-action: manipulation;
+        }
+
+        .dark-mode .btn {
+            background: var(--dark-sand);
+            color: var(--ocra);
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        .btn.operator {
+            background: var(--ocra);
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 3px 6px rgba(212, 160, 23, 0.35);
+        }
+
+        .dark-mode .btn.operator {
+            background: var(--dark-ocra);
+        }
+
+        .btn.equals {
+            background: var(--terracotta);
+            color: white;
+            font-weight: 600;
+            grid-row: span 2;
+            height: calc(var(--button-size) * 2 + var(--button-gap));
+            box-shadow: 0 3px 6px rgba(199, 107, 79, 0.35);
+        }
+
+        .dark-mode .btn.equals {
+            background: var(--dark-terracotta);
+        }
+
+        .btn.clear, .btn.backspace {
+            background: #e9ecef;
+            color: var(--terracotta);
+            font-weight: 600;
+        }
+
+        .dark-mode .btn.clear, 
+        .dark-mode .btn.backspace {
+            background: #343a40;
+            color: var(--dark-terracotta);
+        }
+
+        .btn.memory {
+            background: #d4e4e8;
+            color: #2c6e8a;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .dark-mode .btn.memory {
+            background: #2c3e50;
+            color: #3498db;
+        }
+
+        .btn.scientific {
+            background: #e8d8c5;
+            color: var(--terracotta);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .dark-mode .btn.scientific {
+            background: #3a352a;
+            color: var(--dark-terracotta);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            z-index: 2;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.7);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+
+        .dark-mode .ripple {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        .share-button {
+            width: calc(100% - 30px);
+            margin: 15px auto;
+            padding: 12px 0;
+            background: linear-gradient(45deg, var(--terracotta), #D47D5B);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(199, 107, 79, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .dark-mode .share-button {
+            background: linear-gradient(45deg, var(--dark-terracotta), #B8654A);
+            box-shadow: 0 4px 10px rgba(165, 85, 63, 0.5);
+        }
+
+        .share-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(199, 107, 79, 0.55);
+        }
+
+        .share-button:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 6px rgba(199, 107, 79, 0.4);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--terracotta);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+            z-index: 1000;
+            opacity: 0;
+            transition: all 0.4s ease;
+            text-align: center;
+            width: 85%;
+            max-width: 400px;
+            font-size: 1.05rem;
+        }
+
+        .dark-mode .toast {
+            background: var(--dark-terracotta);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .easter-egg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .easter-egg.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .easter-egg-content {
+            background: var(--sand);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 90%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+            transform: scale(0.9);
+            transition: transform 0.4s ease;
+        }
+
+        .dark-mode .easter-egg-content {
+            background: var(--dark-card);
+        }
+
+        .easter-egg.show .easter-egg-content {
+            transform: scale(1);
+        }
+
+        .easter-egg h2 {
+            font-size: 2.5rem;
+            color: var(--terracotta);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .dark-mode .easter-egg h2 {
+            color: var(--dark-terracotta);
+        }
+
+        .easter-egg p {
+            font-size: 1.4rem;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+
+        .easter-egg button {
+            margin-top: 20px;
+            padding: 10px 30px;
+            background: var(--ocra);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .dark-mode .easter-egg button {
+            background: var(--dark-ocra);
+        }
+
+        .easter-egg button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+        }
+
+        .easter-egg button:active {
+            transform: translateY(1px);
+        }
+
+        .result-animation {
+            animation: bounce 0.5s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 0.4s ease;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            :root {
+                --button-size: 54px;
+                --button-gap: 6px;
+                --display-height: 110px;
+            }
+            
+            .calculator-title {
+                font-size: 1.9rem;
+            }
+            
+            .control-button {
+                width: 32px;
+                height: 32px;
+                font-size: 12px;
+            }
+            
+            .expression {
+                font-size: 1.25rem;
+            }
+            .result {
+                font-size: 2.2rem;
+            }
+            .btn {
+                font-size: 1.15rem;
+                height: var(--button-size);
+            }
+            .btn.equals {
+                height: calc(var(--button-size) * 2 + var(--button-gap));
+            }
+            .share-button {
+                padding: 10px 0;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            :root {
+                --button-size: 50px;
+                --button-gap: 5px;
+                --display-height: 100px;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .calculator {
+                max-width: 100%;
+                border-radius: 14px;
+            }
+            
+            .calculator-title {
+                font-size: 1.7rem;
+                gap: 6px;
+            }
+            
+            .calculator-subtitle {
+                font-size: 0.8rem;
+            }
+            
+            .controls-container {
+                padding: 8px 10px;
+            }
+            
+            .memory-indicator {
+                font-size: 0.8rem;
+                padding: 1px 6px;
+                min-width: 70px;
+            }
+            
+            .control-button {
+                width: 28px;
+                height: 28px;
+                font-size: 10px;
+            }
+            
+            .display-container {
+                padding: 15px;
+                height: var(--display-height);
+            }
+            
+            .expression {
+                font-size: 1.15rem;
+                min-height: 24px;
+            }
+            
+            .result {
+                font-size: 2rem;
+                min-height: 42px;
+            }
+            
+            .humor-message {
+                margin: 12px;
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            
+            .buttons-container {
+                padding: 10px;
+                gap: var(--button-gap);
+            }
+            
+            .btn {
+                font-size: 1.05rem;
+                height: var(--button-size);
+                border-radius: 12px;
+            }
+            
+            .btn.scientific, .btn.memory {
+                font-size: 0.8rem;
+            }
+            
+            .share-button {
+                width: calc(100% - 20px);
+                padding: 8px 0;
+                font-size: 0.95rem;
+                margin: 10px auto;
+            }
+            
+            .history-container {
+                max-height: 80px;
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Accessibility */
+        .btn:focus, .control-button:focus, .share-button:focus {
+            outline: 3px solid var(--ocra);
+            outline-offset: 2px;
+        }
+
+        .dark-mode .btn:focus, 
+        .dark-mode .control-button:focus, 
+        .dark-mode .share-button:focus {
+            outline: 3px solid var(--dark-ocra);
+        }
+
+        /* Scrollbar styling */
+        .expression::-webkit-scrollbar,
+        .history-list::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .expression::-webkit-scrollbar-track,
+        .history-list::-webkit-scrollbar-track {
+            background: var(--sand);
+            border-radius: 10px;
+        }
+
+        .dark-mode .expression::-webkit-scrollbar-track,
+        .dark-mode .history-list::-webkit-scrollbar-track {
+            background: var(--dark-card);
+        }
+
+        .expression::-webkit-scrollbar-thumb,
+        .history-list::-webkit-scrollbar-thumb {
+            background: var(--terracotta);
+            border-radius: 10px;
+        }
+
+        .dark-mode .expression::-webkit-scrollbar-thumb,
+        .dark-mode .history-list::-webkit-scrollbar-thumb {
+            background: var(--dark-terracotta);
+        }
+        
+        /* iPad specific styles */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            :root {
+                --button-size: 65px;
+                --button-gap: 10px;
+                --display-height: 130px;
+            }
+            
+            .calculator {
+                max-width: 450px;
+                margin: 20px;
+            }
+            
+            .calculator-title {
+                font-size: 2.4rem;
+            }
+            
+            .expression {
+                font-size: 1.5rem;
+            }
+            
+            .result {
+                font-size: 2.8rem;
+            }
+            
+            .btn {
+                font-size: 1.4rem;
+                height: var(--button-size);
+            }
+            
+            .share-button {
+                font-size: 1.2rem;
+                padding: 14px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="calculator-header">
+            <h1 class="calculator-title">SANDROLATRICE 🌵</h1>
+            <div class="calculator-subtitle">La calcolatrice con più carattere del nonno Sandro</div>
+        </div>
+        
+        <div class="controls-container">
+            <div class="memory-indicator" id="memory-indicator">MEM: 0</div>
+            <div class="control-buttons">
+                <button class="control-button" id="theme-toggle" aria-label="Cambia tema">☀️</button>
+                <button class="control-button" id="sound-toggle" aria-label="Attiva/disattiva suoni">🎵</button>
+            </div>
+        </div>
+        
+        <div class="display-container">
+            <div class="expression" id="expression"></div>
+            <div class="result" id="result">0</div>
+        </div>
+        
+        <div class="humor-message" id="humor-message">
+            <span id="humor-text"></span>
+            <button class="close-btn" id="close-humor" aria-label="Chiudi messaggio">×</button>
+        </div>
+        
+        <div class="history-container" id="history-container">
+            <div class="history-title">
+                <span>Cronologia calcoli</span>
+                <span id="clear-history" style="cursor:pointer; font-size:0.9em; color:var(--terracotta);">Pulisci</span>
+            </div>
+            <ul class="history-list" id="history-list"></ul>
+        </div>
+        
+        <div class="buttons-container">
+            <!-- Prima riga -->
+            <button class="btn memory" data-action="mc">MC</button>
+            <button class="btn memory" data-action="mr">MR</button>
+            <button class="btn memory" data-action="m+">M+</button>
+            <button class="btn memory" data-action="m-">M-</button>
+            <button class="btn scientific" data-action="modulo">%</button>
+            
+            <!-- Seconda riga -->
+            <button class="btn scientific" data-action="radice">√</button>
+            <button class="btn scientific" data-action="potenza">x²</button>
+            <button class="btn scientific" data-action="reciproco">1/x</button>
+            <button class="btn scientific" data-action="log">log</button>
+            <button class="btn scientific" data-action="ln">ln</button>
+            
+            <!-- Terza riga -->
+            <button class="btn scientific" data-action="sin">sin</button>
+            <button class="btn scientific" data-action="cos">cos</button>
+            <button class="btn scientific" data-action="tan">tan</button>
+            <button class="btn clear" data-action="clear">C</button>
+            <button class="btn backspace" data-action="backspace">⌫</button>
+            
+            <!-- Quarta riga -->
+            <button class="btn" data-value="7">7</button>
+            <button class="btn" data-value="8">8</button>
+            <button class="btn" data-value="9">9</button>
+            <button class="btn operator" data-value="/">÷</button>
+            <button class="btn operator" data-value="(">(</button>
+            
+            <!-- Quinta riga -->
+            <button class="btn" data-value="4">4</button>
+            <button class="btn" data-value="5">5</button>
+            <button class="btn" data-value="6">6</button>
+            <button class="btn operator" data-value="*">×</button>
+            <button class="btn operator" data-value=")">)</button>
+            
+            <!-- Sesta riga -->
+            <button class="btn" data-value="1">1</button>
+            <button class="btn" data-value="2">2</button>
+            <button class="btn" data-value="3">3</button>
+            <button class="btn operator" data-value="-">−</button>
+            <button class="btn scientific" data-action="pi">π</button>
+            
+            <!-- Settima riga -->
+            <button class="btn" data-value="0">0</button>
+            <button class="btn" data-value=".">,</button>
+            <button class="btn equals" data-action="calculate">=</button>
+            <button class="btn operator" data-value="+">+</button>
+        </div>
+        
+        <button class="share-button" id="share-button">
+            <span>Condividi risultato</span>
+        </button>
+    </div>
+    
+    <div class="toast" id="toast">Copiato! Sandro è fiero di te ✨</div>
+    
+    <div class="easter-egg" id="easter-egg">
+        <div class="easter-egg-content">
+            <h2>Attenzione!</h2>
+            <p>🌵 Hai scoperto l'easter egg segreto! 🌵</p>
+            <p>Sei forse Sandro in incognito? 🤨</p>
+            <p style="font-size:0.9em; margin-top:10px; opacity:0.9">Premi ESC per tornare alla calcolatrice</p>
+            <button id="easter-egg-close">Torna alla calcolatrice</button>
+        </div>
+    </div>
+
+    <script>
+        // AUDIO ENGINE - Web Audio API per suoni reali senza dipendenze
+        class SandroAudio {
+            constructor() {
+                this.audioContext = null;
+                this.soundEnabled = localStorage.getItem('soundEnabled') !== 'false';
+                this.gainNode = null;
+                
+                // Initialize on first user interaction
+                document.addEventListener('click', this.init.bind(this), { once: true });
+                document.addEventListener('touchstart', this.init.bind(this), { once: true });
+            }
+            
+            init() {
+                if (this.audioContext) return;
+                
+                try {
+                    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    this.gainNode = this.audioContext.createGain();
+                    this.gainNode.gain.value = 0.3; // Volume base
+                    this.gainNode.connect(this.audioContext.destination);
+                } catch (e) {
+                    console.warn("Web Audio API non disponibile:", e);
+                }
+            }
+            
+            play(type) {
+                if (!this.soundEnabled || !this.audioContext) return;
+                
+                switch(type) {
+                    case 'click':
+                        this.playClick();
+                        break;
+                    case 'result':
+                        this.playChime();
+                        break;
+                    case 'error':
+                        this.playBoing();
+                        break;
+                }
+            }
+            
+            playClick() {
+                const osc = this.audioContext.createOscillator();
+                const gain = this.audioContext.createGain();
+                
+                osc.type = 'sine';
+                osc.frequency.value = 600;
+                osc.connect(gain);
+                gain.connect(this.gainNode);
+                
+                gain.gain.value = 0.1;
+                gain.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + 0.05);
+                
+                osc.start();
+                osc.stop(this.audioContext.currentTime + 0.05);
+            }
+            
+            playChime() {
+                // Suono a 3 note ascendenti (do-mi-sol)
+                const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
+                
+                notes.forEach((freq, i) => {
+                    setTimeout(() => {
+                        const osc = this.audioContext.createOscillator();
+                        const gain = this.audioContext.createGain();
+                        
+                        osc.type = 'sine';
+                        osc.frequency.value = freq;
+                        osc.connect(gain);
+                        gain.connect(this.gainNode);
+                        
+                        gain.gain.value = 0.2;
+                        gain.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + 0.2);
+                        
+                        osc.start();
+                        osc.stop(this.audioContext.currentTime + 0.2);
+                    }, i * 100);
+                });
+            }
+            
+            playBoing() {
+                // Effetto "boing" con frequenza decrescente
+                const osc = this.audioContext.createOscillator();
+                const gain = this.audioContext.createGain();
+                
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(400, this.audioContext.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(100, this.audioContext.currentTime + 0.3);
+                osc.connect(gain);
+                gain.connect(this.gainNode);
+                
+                gain.gain.value = 0.3;
+                gain.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + 0.3);
+                
+                osc.start();
+                osc.stop(this.audioContext.currentTime + 0.3);
+            }
+            
+            toggleSound() {
+                this.soundEnabled = !this.soundEnabled;
+                localStorage.setItem('soundEnabled', this.soundEnabled.toString());
+                return this.soundEnabled;
+            }
+            
+            isEnabled() {
+                return this.soundEnabled;
+            }
+        }
+        
+        // Inizializza il motore audio
+        const sandroAudio = new SandroAudio();
+        
+        // HUMOR SYSTEM - Messaggi italiani divertenti
+        const humorMessages = {
+            success: [
+                "Bravo! Sandro approva questo calcolo 👍",
+                "Preciso come la nonna quando conta le olive 🫒",
+                "Calcolato con amore (e un pizzico di caffè) ☕",
+                "Sandro dice: 'Ma quanto sei bravo!' 😎",
+                "Risultato più affidabile del sugo della domenica 🍝",
+                "Calcolato con la stessa precisione di Sandro al bar ✨",
+                "Numeri che ballano la tarantella! 💃",
+                "Sandro è fiero di te (e anche un po' invidioso) 😉",
+                "Preciso come l'orologio del campanile 🕰️",
+                "Hai calcolato meglio di Sandro al supermercato! 🛒"
+            ],
+            grandeNumero: [
+                "Ma quanti soldi sono?! Sandro sviene 💸",
+                "Numero più grande della fila al bar la domenica 📈",
+                "Sandro dice: 'Ma dove li mettiamo tutti sti zeri?' 😱",
+                "Così tanti zeri che ci perde la testa Sandro! 🤯",
+                "Numero che farebbe impallidire anche Paperon de' Paperoni 💰",
+                "Sandro sta già pensando a cosa comprare con 'sti soldi 🛍️",
+                "Più zeri di quelli sul libretto della pensione di Sandro 📉",
+                "Numero che farebbe girare la testa anche al commercialista 🤪"
+            ],
+            zero: [
+                "Zero come le probabilità di Sandro di restare serio 😄",
+                "Niente, zero, nada... come le diete di Sandro dopo Pasqua 🍕",
+                "Zero assoluto, come la pazienza di Sandro in coda 🚶‍♂️",
+                "Zero preciso, come le promesse di Sandro di smettere di fumare 🚬",
+                "Zero, ma con stile! Sandro approva 😎",
+                "Zero come i capelli di Sandro dopo la nuotata 🏊‍♂️",
+                "Niente male, ma il risultato è zero... come il conto in banca a fine mese 😅"
+            ],
+            errore: [
+                "Ops! Sandro ha inciampato nei numeri 🤦‍♂️",
+                "Errore! Nemmeno Sandro capisce 'sta roba 🤔",
+                "Boh! Sandro dice: 'Riprova, cià!' 😅",
+                "Qualcosa è andato storto... come i capelli di Sandro al mare 💨",
+                "Errore! Sandro sta grattandosi la testa 🤯",
+                "Numeri ribelli! Sandro li insegue con la scopa 🧹",
+                "Boing! Sandro ha sbagliato di nuovo 😜",
+                "Errore di calcolo! Sandro ti offre un caffè per farti perdonare ☕"
+            ]
+        };
+        
+        // CALCULATOR STATE
+        const state = {
+            currentInput: '',
+            memoryValue: parseFloat(localStorage.getItem('calculatorMemory')) || 0,
+            history: JSON.parse(localStorage.getItem('calculatorHistory')) || [],
+            zeroCounter: 0,
+            darkMode: localStorage.getItem('darkMode') === 'true'
+        };
+        
+        // DOM ELEMENTS
+        const expressionEl = document.getElementById('expression');
+        const resultEl = document.getElementById('result');
+        const humorMessageEl = document.getElementById('humor-message');
+        const humorTextEl = document.getElementById('humor-text');
+        const closeHumorBtn = document.getElementById('close-humor');
+        const memoryIndicatorEl = document.getElementById('memory-indicator');
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const soundToggleBtn = document.getElementById('sound-toggle');
+        const shareButton = document.getElementById('share-button');
+        const toastEl = document.getElementById('toast');
+        const historyContainer = document.getElementById('history-container');
+        const historyListEl = document.getElementById('history-list');
+        const clearHistoryBtn = document.getElementById('clear-history');
+        const easterEggEl = document.getElementById('easter-egg');
+        const easterEggCloseBtn = document.getElementById('easter-egg-close');
+        
+        // Initialize UI based on saved state
+        if (state.darkMode) {
+            document.body.classList.add('dark-mode');
+            themeToggleBtn.textContent = '🌙';
+        }
+        
+        if (!sandroAudio.isEnabled()) {
+            soundToggleBtn.textContent = '🔇';
+            soundToggleBtn.classList.add('sound-off');
+        }
+        
+        updateMemoryDisplay();
+        renderHistory();
+        
+        // BUTTON CLICK HANDLER
+        document.querySelectorAll('.btn, .control-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                // Ripple effect for mobile
+                if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+                    createRipple(e);
+                }
+                
+                // Sound feedback for calculator buttons
+                if (button.classList.contains('btn') && !button.classList.contains('memory')) {
+                    sandroAudio.play('click');
+                }
+                
+                // Handle different button types
+                if (button.dataset.value) {
+                    handleInput(button.dataset.value);
+                } else if (button.dataset.action) {
+                    handleAction(button.dataset.action);
+                }
+                
+                // Easter egg counter for zero button
+                if (button.dataset.value === '0') {
+                    state.zeroCounter++;
+                    if (state.zeroCounter >= 10) {
+                        showEasterEgg();
+                        state.zeroCounter = 0;
+                    }
+                } else {
+                    state.zeroCounter = 0;
+                }
+            });
+            
+            // Add keyboard support
+            button.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    button.click();
+                }
+            });
+        });
+        
+        // CREATE RIPPLE EFFECT FOR TOUCH DEVICES
+        function createRipple(event) {
+            const button = event.currentTarget;
+            const ripple = document.createElement('span');
+            const rect = button.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = event.clientX - rect.left - size / 2;
+            const y = event.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = `${size}px`;
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            ripple.classList.add('ripple');
+            
+            button.appendChild(ripple);
+            
+            // Remove ripple after animation
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        }
+        
+        // HANDLE INPUT (NUMBERS AND OPERATORS)
+        function handleInput(value) {
+            // Reset display if showing result or error
+            if (resultEl.textContent === 'Errore' || state.currentInput === '') {
+                state.currentInput = '';
+            }
+            
+            // Handle decimal comma (Italian style)
+            if (value === '.') {
+                // Check if we already have a decimal in the current number
+                const parts = state.currentInput.split(/[\+\-\*\/\(\)]/);
+                const lastPart = parts[parts.length - 1];
+                
+                if (lastPart.includes('.')) return;
+                value = '.';
+            }
+            
+            // Handle operators - prevent double operators
+            if (['+', '-', '*', '/'].includes(value)) {
+                // Replace last operator if it's at the end
+                if (state.currentInput && ['+', '-', '*', '/'].includes(state.currentInput.slice(-1))) {
+                    state.currentInput = state.currentInput.slice(0, -1);
+                }
+                // Prevent operator at start (except minus)
+                if (state.currentInput === '' && value !== '-') return;
+            }
+            
+            // Add the value to the input
+            state.currentInput += value;
+            updateDisplay();
+        }
+        
+        // HANDLE ACTIONS (CLEAR, BACKSPACE, CALCULATE, ETC.)
+        function handleAction(action) {
+            switch(action) {
+                case 'clear':
+                    state.currentInput = '';
+                    resultEl.textContent = '0';
+                    expressionEl.textContent = '';
+                    sandroAudio.play('click');
+                    break;
+                case 'backspace':
+                    state.currentInput = state.currentInput.slice(0, -1);
+                    if (state.currentInput === '') {
+                        resultEl.textContent = '0';
+                    }
+                    sandroAudio.play('click');
+                    break;
+                case 'calculate':
+                    calculateResult();
+                    break;
+                case 'mc':
+                    state.memoryValue = 0;
+                    updateMemoryDisplay();
+                    showHumorMessage("Memoria cancellata! Sandro ha già dimenticato tutto 😅", 2500);
+                    sandroAudio.play('click');
+                    break;
+                case 'mr':
+                    if (state.memoryValue !== 0) {
+                        state.currentInput = state.memoryValue.toString();
+                        updateDisplay();
+                        showHumorMessage("Memoria recuperata! Sandro ricorda tutto (quasi) 😉", 2500);
+                        sandroAudio.play('click');
+                    }
+                    break;
+                case 'm+':
+                    try {
+                        const currentVal = parseFloat(evaluateExpression(state.currentInput));
+                        if (!isNaN(currentVal)) {
+                            state.memoryValue += currentVal;
+                            updateMemoryDisplay();
+                            showHumorMessage(`Aggiunto a memoria! Sandro ha segnato ${currentVal} sul suo taccuino 📓`, 2500);
+                            sandroAudio.play('click');
+                        }
+                    } catch (e) {
+                        showError("Errore nell'operazione di memoria");
+                    }
+                    break;
+                case 'm-':
+                    try {
+                        const currentVal = parseFloat(evaluateExpression(state.currentInput));
+                        if (!isNaN(currentVal)) {
+                            state.memoryValue -= currentVal;
+                            updateMemoryDisplay();
+                            showHumorMessage(`Sottratto dalla memoria! Sandro cancella ${currentVal} con la sua gomma magica ✨`, 2500);
+                            sandroAudio.play('click');
+                        }
+                    } catch (e) {
+                        showError("Errore nell'operazione di memoria");
+                    }
+                    break;
+                case 'radice':
+                    if (state.currentInput === '') {
+                        state.currentInput = '√(';
+                    } else {
+                        // Wrap last number or entire expression in sqrt
+                        state.currentInput = `√(${state.currentInput})`;
+                    }
+                    sandroAudio.play('click');
+                    break;
+                case 'potenza':
+                    if (state.currentInput === '') {
+                        state.currentInput = '^(2)';
+                    } else {
+                        state.currentInput = `(${state.currentInput})^(2)`;
+                    }
+                    sandroAudio.play('click');
+                    break;
+                case 'reciproco':
+                    if (state.currentInput === '') {
+                        state.currentInput = '1/(';
+                    } else {
+                        state.currentInput = `1/(${state.currentInput})`;
+                    }
+                    sandroAudio.play('click');
+                    break;
+                case 'log':
+                    if (state.currentInput === '') {
+                        state.currentInput = 'log(';
+                    } else {
+                        state.currentInput = `log(${state.currentInput})`;
+                    }
+                    sandroAudio.play('click');
+                    break;
+                case 'ln':
+                    if (state.currentInput === '') {
+                        state.currentInput = 'ln(';
+                    } else {
+                        state.currentInput = `ln(${state.currentInput})`;
+                    }
+                    sandroAudio.play('click');
+                    break;
+                case 'sin':
+                    if (state.currentInput === '') {
+                        state.currentInput = 'sin(';
+                    } else {
+                        state.currentInput = `sin(${state.currentInput})`;
+                    }
+                    sandroAudio.play('click');
+                    break;
+                case 'cos':
+                    if (state.currentInput === '') {
+                        state.currentInput = 'cos(';
+                    } else {
+                        state.currentInput = `cos(${state.currentInput})`;
+                    }
+                    sandroAudio.play('click');
+                    break;
+                case 'tan':
+                    if (state.currentInput === '') {
+                        state.currentInput = 'tan(';
+                    } else {
+                        state.currentInput = `tan(${state.currentInput})`;
+                    }
+                    sandroAudio.play('click');
+                    break;
+                case 'modulo':
+                    if (state.currentInput === '') {
+                        state.currentInput = '/100';
+                    } else {
+                        state.currentInput = `(${state.currentInput})/100`;
+                    }
+                    sandroAudio.play('click');
+                    break;
+                case 'pi':
+                    state.currentInput += '3.14159265359';
+                    sandroAudio.play('click');
+                    break;
+            }
+            updateDisplay();
+        }
+        
+        // UPDATE DISPLAY
+        function updateDisplay() {
+            expressionEl.textContent = formatExpression(state.currentInput);
+            
+            // Show preview of result while typing
+            if (state.currentInput && !['+', '-', '*', '/', '('].includes(state.currentInput.slice(-1))) {
+                try {
+                    const preview = evaluateExpression(state.currentInput);
+                    if (!isNaN(preview) && isFinite(preview)) {
+                        resultEl.textContent = formatResult(preview);
+                    }
+                } catch (e) {
+                    // Don't show preview if invalid
+                }
+            }
+        }
+        
+        // FORMAT EXPRESSION FOR DISPLAY
+        function formatExpression(expr) {
+            return expr
+                .replace(/\*/g, '×')
+                .replace(/\//g, '÷')
+                .replace(/\^/g, '^')
+                .replace(/log/g, 'log')
+                .replace(/ln/g, 'ln')
+                .replace(/sin/g, 'sin')
+                .replace(/cos/g, 'cos')
+                .replace(/tan/g, 'tan')
+                .replace(/√/g, '√');
+        }
+        
+        // FORMAT RESULT FOR DISPLAY
+        function formatResult(value) {
+            // Handle special cases
+            if (value === Infinity || value === -Infinity) return 'Errore';
+            if (isNaN(value)) return 'Errore';
+            
+            // Format large numbers with Italian locale
+            const absValue = Math.abs(value);
+            if (absValue >= 1e9) {
+                return value.toExponential(5).replace('.', ',');
+            }
+            
+            // Format with max 15 significant digits
+            let strValue = value.toString();
+            if (strValue.includes('.')) {
+                // Limit decimal places but keep significant digits
+                const parts = strValue.split('.');
+                if (parts[1].length > 10) {
+                    strValue = parseFloat(value.toFixed(10)).toString();
+                }
+            }
+            
+            // Replace decimal point with comma for Italian format
+            return strValue.replace('.', ',');
+        }
+        
+        // SAFE EVALUATION OF EXPRESSION
+        function evaluateExpression(expr) {
+            try {
+                // Replace math functions with JavaScript equivalents
+                let safeExpr = expr
+                    .replace(/√\(/g, 'Math.sqrt(')
+                    .replace(/\^/g, '**')
+                    .replace(/log\(/g, 'Math.log10(')
+                    .replace(/ln\(/g, 'Math.log(')
+                    .replace(/sin\(/g, 'Math.sin(')
+                    .replace(/cos\(/g, 'Math.cos(')
+                    .replace(/tan\(/g, 'Math.tan(')
+                    .replace(/÷/g, '/')
+                    .replace(/×/g, '*')
+                    .replace(/,/g, '.'); // Convert Italian comma to decimal point
+                
+                // Evaluate in a safe context
+                const result = new Function(`return ${safeExpr}`)();
+                
+                // Handle invalid results
+                if (isNaN(result) || !isFinite(result)) {
+                    throw new Error('Invalid result');
+                }
+                
+                return result;
+            } catch (e) {
+                throw new Error('Invalid expression');
+            }
+        }
+        
+        // CALCULATE RESULT
+        function calculateResult() {
+            if (!state.currentInput) return;
+            
+            try {
+                const result = evaluateExpression(state.currentInput);
+                const formattedResult = formatResult(result);
+                
+                // Update display with result
+                expressionEl.textContent = formatExpression(state.currentInput) + ' =';
+                resultEl.textContent = formattedResult;
+                resultEl.classList.add('result-animation');
+                
+                // Add to history
+                addToHistory(state.currentInput, formattedResult);
+                
+                // Show humor message based on result
+                showContextualHumor(result);
+                
+                // Play success sound
+                sandroAudio.play('result');
+                
+                // Reset current input but keep result for next operation
+                state.currentInput = formattedResult.replace(',', '.');
+                
+                // Remove animation class after animation completes
+                setTimeout(() => {
+                    resultEl.classList.remove('result-animation');
+                }, 500);
+                
+            } catch (e) {
+                showError('Errore nel calcolo');
+                sandroAudio.play('error');
+            }
+        }
+        
+        // ADD TO HISTORY
+        function addToHistory(expression, result) {
+            // Format expression for history display
+            const formattedExpr = formatExpression(expression).replace(/,/g, '.');
+            
+            // Add to history array
+            state.history.unshift({
+                expression: formattedExpr,
+                result: result
+            });
+            
+            // Keep only last 10 items
+            if (state.history.length > 10) {
+                state.history.pop();
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('calculatorHistory', JSON.stringify(state.history));
+            
+            // Update history display
+            renderHistory();
+        }
+        
+        // RENDER HISTORY
+        function renderHistory() {
+            historyListEl.innerHTML = '';
+            
+            if (state.history.length === 0) {
+                historyContainer.classList.remove('show');
+                return;
+            }
+            
+            historyContainer.classList.add('show');
+            
+            state.history.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.className = 'history-item';
+                li.innerHTML = `
+                    <span class="history-expression">${item.expression}</span>
+                    <span class="history-result">${item.result}</span>
+                `;
+                li.addEventListener('click', () => {
+                    state.currentInput = item.result.replace(',', '.');
+                    updateDisplay();
+                    sandroAudio.play('click');
+                });
+                historyListEl.appendChild(li);
+            });
+        }
+        
+        // CLEAR HISTORY
+        clearHistoryBtn.addEventListener('click', () => {
+            state.history = [];
+            localStorage.removeItem('calculatorHistory');
+            renderHistory();
+            showHumorMessage("Cronologia cancellata! Sandro ha la memoria corta 🤪", 2500);
+            sandroAudio.play('click');
+        });
+        
+        // SHOW ERROR
+        function showError(message) {
+            expressionEl.textContent = formatExpression(state.currentInput);
+            resultEl.textContent = 'Errore';
+            resultEl.classList.add('pulse');
+            setTimeout(() => {
+                resultEl.classList.remove('pulse');
+            }, 400);
+            showHumorMessage(getRandomMessage('errore'), 3500);
+        }
+        
+        // SHOW CONTEXTUAL HUMOR MESSAGE
+        function showContextualHumor(result) {
+            let messageCategory;
+            
+            if (result === 0) {
+                messageCategory = 'zero';
+            } else if (Math.abs(result) > 10000) {
+                messageCategory = 'grandeNumero';
+            } else {
+                messageCategory = 'success';
+            }
+            
+            showHumorMessage(getRandomMessage(messageCategory));
+        }
+        
+        // GET RANDOM MESSAGE FROM CATEGORY
+        function getRandomMessage(category) {
+            const messages = humorMessages[category] || humorMessages.success;
+            return messages[Math.floor(Math.random() * messages.length)];
+        }
+        
+        // SHOW HUMOR MESSAGE
+        function showHumorMessage(message, duration = 3000) {
+            humorTextEl.textContent = message;
+            humorMessageEl.classList.add('show');
+            
+            // Auto hide after duration
+            setTimeout(() => {
+                humorMessageEl.classList.remove('show');
+            }, duration);
+        }
+        
+        // CLOSE HUMOR MESSAGE
+        closeHumorBtn.addEventListener('click', () => {
+            humorMessageEl.classList.remove('show');
+        });
+        
+        // UPDATE MEMORY DISPLAY
+        function updateMemoryDisplay() {
+            memoryIndicatorEl.textContent = `MEM: ${formatResult(state.memoryValue)}`;
+            localStorage.setItem('calculatorMemory', state.memoryValue.toString());
+        }
+        
+        // TOGGLE THEME
+        themeToggleBtn.addEventListener('click', () => {
+            state.darkMode = !state.darkMode;
+            document.body.classList.toggle('dark-mode', state.darkMode);
+            themeToggleBtn.textContent = state.darkMode ? '🌙' : '☀️';
+            localStorage.setItem('darkMode', state.darkMode.toString());
+            sandroAudio.play('click');
+            
+            // Show humor message for theme change
+            showHumorMessage(state.darkMode ? 
+                "Modalità notturna attivata! Sandro ora calcola al buio 🌙" : 
+                "Modalità chiara attivata! Sandro esce dal buio ☀️", 2500);
+        });
+        
+        // TOGGLE SOUND
+        soundToggleBtn.addEventListener('click', () => {
+            const enabled = sandroAudio.toggleSound();
+            soundToggleBtn.textContent = enabled ? '🎵' : '🔇';
+            soundToggleBtn.classList.toggle('sound-off', !enabled);
+            
+            // Show humor message for sound toggle
+            showHumorMessage(enabled ? 
+                "Suoni attivati! Ora Sandro canta mentre calcola 🎵" : 
+                "Suoni disattivati! Sandro calcola in silenzio... troppo silenzio 😶", 2500);
+            
+            sandroAudio.play('click');
+        });
+        
+        // SHARE BUTTON
+        shareButton.addEventListener('click', () => {
+            const result = resultEl.textContent;
+            if (result === '0' || result === 'Errore') {
+                showHumorMessage("Niente da condividere! Fai prima un calcolo, birbante 😜", 2500);
+                return;
+            }
+            
+            const expression = expressionEl.textContent.replace(' =', '');
+            const shareText = `Ho calcolato con SANDROLATRICE 🌵\n\n${expression}\n= ${result}\n\n#SANDROLATRICE #CalcoliConSorriso`;
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(shareText).then(() => {
+                // Show toast
+                toastEl.classList.add('show');
+                sandroAudio.play('result');
+                
+                // Hide toast after delay
+                setTimeout(() => {
+                    toastEl.classList.remove('show');
+                }, 2500);
+            }).catch(err => {
+                console.error('Errore nella copia:', err);
+                showHumorMessage("Ops! Sandro ha fatto cadere gli appunti 📄", 2500);
+            });
+        });
+        
+        // SHOW EASTER EGG
+        function showEasterEgg() {
+            easterEggEl.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            sandroAudio.play('result');
+        }
+        
+        // CLOSE EASTER EGG
+        easterEggCloseBtn.addEventListener('click', () => {
+            easterEggEl.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        });
+        
+        easterEggEl.addEventListener('click', (e) => {
+            if (e.target === easterEggEl) {
+                easterEggEl.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Close easter egg with ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && easterEggEl.classList.contains('show')) {
+                easterEggEl.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // KEYBOARD SUPPORT
+        document.addEventListener('keydown', (e) => {
+            // Prevent default for calculator keys
+            if (['0','1','2','3','4','5','6','7','8','9','.','+','-','*','/','(',')','=','Enter','Backspace','Escape'].includes(e.key)) {
+                e.preventDefault();
+            }
+            
+            // Handle number keys
+            if (/[0-9]/.test(e.key)) {
+                handleInput(e.key);
+                document.querySelector(`.btn[data-value="${e.key}"]`)?.classList.add('pulse');
+                setTimeout(() => document.querySelector(`.btn[data-value="${e.key}"]`)?.classList.remove('pulse'), 200);
+            }
+            
+            // Handle operator keys
+            if (['+', '-', '*', '/'].includes(e.key)) {
+                handleInput(e.key);
+                const selector = e.key === '*' ? '.btn.operator[data-value="*"]' : `.btn.operator[data-value="${e.key}"]`;
+                document.querySelector(selector)?.classList.add('pulse');
+                setTimeout(() => document.querySelector(selector)?.classList.remove('pulse'), 200);
+            }
+            
+            // Handle decimal comma/period
+            if (e.key === '.' || e.key === ',') {
+                handleInput('.');
+                document.querySelector(`.btn[data-value="."]`)?.classList.add('pulse');
+                setTimeout(() => document.querySelector(`.btn[data-value="."]`)?.classList.remove('pulse'), 200);
+            }
+            
+            // Handle parentheses
+            if (e.key === '(' || e.key === ')') {
+                handleInput(e.key);
+                document.querySelector(`.btn.operator[data-value="${e.key}"]`)?.classList.add('pulse');
+                setTimeout(() => document.querySelector(`.btn.operator[data-value="${e.key}"]`)?.classList.remove('pulse'), 200);
+            }
+            
+            // Handle equals and enter
+            if (e.key === '=' || e.key === 'Enter') {
+                handleAction('calculate');
+                document.querySelector('.btn.equals')?.classList.add('pulse');
+                setTimeout(() => document.querySelector('.btn.equals')?.classList.remove('pulse'), 200);
+            }
+            
+            // Handle backspace
+            if (e.key === 'Backspace') {
+                handleAction('backspace');
+                document.querySelector('.btn.backspace')?.classList.add('pulse');
+                setTimeout(() => document.querySelector('.btn.backspace')?.classList.remove('pulse'), 200);
+            }
+            
+            // Handle escape for clear
+            if (e.key === 'Escape') {
+                handleAction('clear');
+                document.querySelector('.btn.clear')?.classList.add('pulse');
+                setTimeout(() => document.querySelector('.btn.clear')?.classList.remove('pulse'), 200);
+            }
+        });
+        
+        // PWA MANIFEST - Corretto con tipo MIME corretto
+        const manifest = {
+            "name": "SANDROLATRICE",
+            "short_name": "SANDROLATRICE",
+            "start_url": "/",
+            "display": "standalone",
+            "background_color": "#F5E6D3",
+            "theme_color": "#C76B4F",
+            "orientation": "portrait-primary",
+            "icons": [
+                {
+                    "src": "image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='32' fill='%23C76B4F'/%3E%3Ccircle cx='96' cy='96' r='65' fill='%23F5E6D3'/%3E%3Ctext x='96' y='110' font-family='Arial' font-size='75' text-anchor='middle' fill='%23C76B4F'%3E🌵%3C/text%3E%3C/svg%3E",
+                    "sizes": "192x192",
+                    "type": "image/svg+xml",
+                    "purpose": "any maskable"
+                },
+                {
+                    "src": "image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='80' fill='%23C76B4F'/%3E%3Ccircle cx='256' cy='256' r='175' fill='%23F5E6D3'/%3E%3Ctext x='256' y='295' font-family='Arial' font-size='200' text-anchor='middle' fill='%23C76B4F'%3E🌵%3C/text%3E%3C/svg%3E",
+                    "sizes": "512x512",
+                    "type": "image/svg+xml",
+                    "purpose": "any maskable"
+                }
+            ]
+        };
+        
+        const manifestURL = URL.createObjectURL(new Blob([JSON.stringify(manifest)], {type: 'application/json'}));
+        const link = document.createElement('link');
+        link.rel = 'manifest';
+        link.href = manifestURL;
+        document.head.appendChild(link);
+        
+        // Show initial humor message
+        setTimeout(() => {
+            showHumorMessage("Benvenuto nella SANDROLATRICE! Pronto a calcolare con stile italiano? 😎", 4000);
+        }, 1000);
+    </script>
+</body>
+</html>
